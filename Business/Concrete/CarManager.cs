@@ -28,7 +28,7 @@ namespace Business.Concrete
             {
                 Console.WriteLine("Car Name cannot be less than 2 characters and Daily Price cannot be less than 0.");
             }
-
+            Console.WriteLine("Car Added");
         }
 
         public void Delete(Car car)

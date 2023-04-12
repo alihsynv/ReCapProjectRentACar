@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using System;
@@ -11,47 +12,56 @@ namespace ConsoleUI
         {
             //GetAll();
             //GetById();
-            //Delete(); 
+            //GetCarsByBrandId();
+            //GetCarsByColorId();
             //Add();
         }
 
         private static void Add()
         {
-            CarManager carManager = new CarManager(new InMemoryCarDal());
-            Car car = new Car { Id = 6, BrandID = 2, ColorId = 1, DailyPrice = 100, ModelYear = 2019, Description = "Mercedes EQS" };
-
-            carManager.Add(car);
-            foreach (var c in carManager.GetAll())
+            CarManager carManager = new CarManager(new EfCarDal());
+            carManager.Add(new Car
             {
-                Console.WriteLine(c.Description);
-            }
-            Console.WriteLine("Car Added");
-
+                Name = "Audi A4",
+                BrandId = 1,
+                ColorId = 3,
+                DailyPrice = 300,
+                ModelYear = 2021,
+                Description = "Audi's luxury sedan"
+            });
         }
 
-        private static void Delete()
+        private static void GetCarsByColorId()
         {
-            CarManager carManager = new CarManager(new InMemoryCarDal());
-            Car car = new Car();
-            carManager.Delete(car);
-            Console.WriteLine("Deleted Car");
+            CarManager carManager = new CarManager(new EfCarDal());
+            foreach (var car in carManager.GetCarsByColorId(2))
+            {
+                Console.WriteLine(car.Name);
+            }
+        }
+
+        private static void GetCarsByBrandId()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            foreach (var car in carManager.GetCarsByBrandId(2))
+            {
+                Console.WriteLine(car.Name);
+            }
         }
 
         private static void GetById()
         {
-            CarManager carManager = new CarManager(new InMemoryCarDal());
-            foreach (var car in carManager.GetById(2))
-            {
-                Console.WriteLine(car.Description);
-            }
+            CarManager carManager = new CarManager(new EfCarDal());
+            Console.WriteLine(carManager.GetById(1).Name);
         }
 
         private static void GetAll()
         {
-            CarManager carManager = new CarManager(new InMemoryCarDal());
+            CarManager carManager = new CarManager(new EfCarDal());
+
             foreach (var car in carManager.GetAll())
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine(car.Name);
             }
         }
     }
