@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Abstarct
+namespace Core.DataAccess
 {
     public interface IEntityRepository<T> where T : class, new()
     {
