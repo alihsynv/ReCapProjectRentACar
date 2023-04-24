@@ -20,13 +20,26 @@ namespace ConsoleUI
             //BrandTestGetById();
             //BradTestAdd();
 
-            ColorTestGetAll();
+            //ColorTestGetAll();
             //ColorTestGetById();
             //ColorTestAdd();
+
+            CarDetailTest();
         }
+
+        private static void CarDetailTest()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            foreach (var car in carManager.GetCarDetails())
+            {
+                Console.WriteLine($"{car.CarName} / {car.BrandName} / {car.ColorName} / {car.DailyPrice}");
+
+            }
+        }
+
         private static void ColorTestAdd()
         {
-            ColorManager colorManager= new ColorManager(new EfColorDal());
+            ColorManager colorManager = new ColorManager(new EfColorDal());
             colorManager.Add(new Color
             {
                 Name = "Black",
